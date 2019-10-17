@@ -43,6 +43,19 @@ class Scene {
         } 
         this.t1 = this.t2;
     }
+    updateTransform() {
+        this.t2 = new Date().getTime();
+        var dt = 1 / (this.t2 - this.t1);
+        for (var i = 0; i < this.layers.length; i++) {
+            for (const [key, value] of this.layers[i].entries()) {
+                value.updateTransform(dt);
+            }
+        }
+        for (const [key, value] of this.uiLayer.entries()) {
+            value.updateTransform(dt);
+        } 
+        this.t1 = this.t2;
+    }
     delete(id) {
         for (var i = 0; i < this.layers.length; i++) {
             this.objects.delete(id);
@@ -50,6 +63,7 @@ class Scene {
     }
     run() {
         this.update();
+        this.updateTransform();
         this.draw();
     }
     start() {

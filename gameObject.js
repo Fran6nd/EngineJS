@@ -21,4 +21,8 @@ class GameObject {
     {
         this.transform.rotation += 1*dt;
     }
+    updateTransform(dt)
+    {
+        
+    }
 }
