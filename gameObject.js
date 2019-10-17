@@ -33,8 +33,8 @@ class GameObject {
     {
         ctx.beginPath();
         var end = new Vector2D(20, 0).setArg(this.transform.rotation).add(this.transform.position);
-        ctx.arc(this.transform.position.x, this.transform.position.y, 2.5, 0, Math.PI * 2);
         GameObject.drawArrow(ctx, this.transform, end, 10);
+        GameObject.drawCross(ctx, this.transform.position);
         ctx.strokeStyle  = "#FF0000";
         ctx.stroke(); 
         ctx.closePath();
