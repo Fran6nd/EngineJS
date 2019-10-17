@@ -5,6 +5,9 @@ class GameObject {
     }
     draw(canvas, ctx)
     {
+    }
+    debugDraw(canvas, ctx)
+    {
         ctx.beginPath();
         var pt = new Vector2D(10, 0);
         pt.setArg(this.transform.rotation);

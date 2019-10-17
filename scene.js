@@ -30,6 +30,16 @@ class Scene {
         this.ctx.fillStyle = "#000000";
         this.ctx.fillText("Score: " + new Date().getTime().toString(10), 0, 20);
     }
+    debugDraw() {
+        for (var i = 0; i < this.layers.length; i++) {
+            for (const [key, value] of this.layers[i].entries()) {
+                value.debugDraw(this.canvas, this.ctx);
+            }
+        }
+        for (const [key, value] of this.uiLayer.entries()) {
+            value.debugDraw(this.canvas, this.ctx);
+        }
+    }
     update() {
         for (var i = 0; i < this.layers.length; i++) {
             for (const [key, value] of this.layers[i].entries()) {
@@ -62,6 +72,7 @@ class Scene {
         this.update();
         this.updateTransform();
         this.draw();
+        this.debugDraw();
         this.t1 = this.t2;
     }
     start() {
