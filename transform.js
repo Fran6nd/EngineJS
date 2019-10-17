@@ -6,4 +6,29 @@ class Transform {
         this.velocity = velocity;
         this.angularVelocity = angularVelocity;
     }
+    /* Relative direction vectors. */
+    forward()
+    {
+        return Vector2D.forward().setArg(this.rotation);
+    }
+    backward()
+    {
+        return Vector2D.forward().setArg(this.rotation).mul(-1);
+    }
+    up()
+    {
+        return Vector2D.forward().setArg(this.rotation);
+    }
+    down()
+    {
+        return Vector2D.forward().setArg(this.rotation).mul(-1);
+    }
+    left()
+    {
+        return Vector2D.forward().setArg(this.rotation + Math.PI);
+    }
+    right()
+    {
+        return Vector2D.forward().setArg(this.rotation + Math.PI).mul(-1);
+    }
 }
