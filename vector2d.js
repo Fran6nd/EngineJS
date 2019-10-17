@@ -32,6 +32,7 @@ class Vector2D {
 		var x = Math.cos(arg) * module;
         this.x = x;
         this.y = y;
+        return this;
     }
     normalize(){
         var arg = this.getArg();

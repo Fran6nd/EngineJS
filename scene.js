@@ -31,30 +31,25 @@ class Scene {
         this.ctx.fillText("Score: " + new Date().getTime().toString(10), 0, 20);
     }
     update() {
-        this.t2 = new Date().getTime();
-        var dt = 1 / (this.t2 - this.t1);
         for (var i = 0; i < this.layers.length; i++) {
             for (const [key, value] of this.layers[i].entries()) {
-                value.update(dt);
+                value.update(this.dt);
             }
         }
         for (const [key, value] of this.uiLayer.entries()) {
-            value.update(dt);
+            value.update(this.dt);
         } 
-        this.t1 = this.t2;
     }
     updateTransform() {
-        this.t2 = new Date().getTime();
-        var dt = 1 / (this.t2 - this.t1);
         for (var i = 0; i < this.layers.length; i++) {
             for (const [key, value] of this.layers[i].entries()) {
-                value.updateTransform(dt);
+                value.updateTransform(this.dt);
             }
         }
+        
         for (const [key, value] of this.uiLayer.entries()) {
             value.updateTransform(dt);
-        } 
-        this.t1 = this.t2;
+        }
     }
     delete(id) {
         for (var i = 0; i < this.layers.length; i++) {
@@ -62,9 +57,12 @@ class Scene {
         }
     }
     run() {
+        this.t2 = new Date().getTime();
+        this.dt = 1 / (this.t2 - this.t1) / 1000;
         this.update();
         this.updateTransform();
         this.draw();
+        this.t1 = this.t2;
     }
     start() {
         setInterval(this.run, 10);

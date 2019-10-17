@@ -19,10 +19,11 @@ class GameObject {
     }
     update(dt)
     {
-        this.transform.rotation += 1*dt;
+        this.transform.velocity = this.transform.forward().mul(1000);
     }
     updateTransform(dt)
     {
-        
+        this.transform.rotation += this.transform.angularVelocity * dt;
+        this.transform.position = this.transform.position.add(this.transform.velocity.mul(dt));
     }
 }
