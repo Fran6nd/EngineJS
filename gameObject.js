@@ -9,7 +9,7 @@ class GameObject {
     debugDraw(canvas, ctx)
     {
         ctx.beginPath();
-        var end = new Vector2D(20, 0).setArg(this.transform.rotation).add(this.transform.position);
+        var end = new Vector2D(30, 0).setArg(this.transform.rotation).add(this.transform.position);
         Drawing.drawArrow(ctx, this.transform, end, 10);
         Drawing.drawCross(ctx, this.transform.position);
         ctx.strokeStyle  = "#FF0000";

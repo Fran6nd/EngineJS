@@ -10,8 +10,8 @@ class Drawing {
     }
     static drawArrow(ctx, startTransform, end, width = 10) {
         var module = startTransform.position.sub(end).getModule();
-        var up = new Vector2D(85 / 100 * module, width / 2).incrementArg(startTransform.rotation).add(startTransform.position);
-        var down = new Vector2D(85 / 100 * module, -width / 2).incrementArg(startTransform.rotation).add(startTransform.position);
+        var up = new Vector2D(80 / 100 * module, width / 2).incrementArg(startTransform.rotation).add(startTransform.position);
+        var down = new Vector2D(80 / 100 * module, -width / 2).incrementArg(startTransform.rotation).add(startTransform.position);
         Drawing.drawLine(ctx, startTransform.position, end);
         Drawing.drawLine(ctx, up, end);
         Drawing.drawLine(ctx, down, end);
