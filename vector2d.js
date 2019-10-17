@@ -4,6 +4,7 @@ class Vector2D {
         this.x = x;
         this.y = y;
     }
+    /* Arithmetic operators */
     add(other){
         return new Vector2D(this.x + other.x, this.y + other.y);
     }
@@ -16,6 +17,8 @@ class Vector2D {
     div(other){
         return new Vector2D(this.x / other, this.y / other);
     }
+
+    /* Vector2D methods */
     getModule(){
         return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
     }
@@ -36,4 +39,30 @@ class Vector2D {
 		var x = Math.cos(arg);
 		return new Vector2D(x, y);
     }
+
+    /* Static methods */
+    static up()
+    {
+        return new Vector2D(0, 1);
+    }
+    static forward()
+    {
+        return new Vector2D(0, 1);
+    } 
+    static down()
+    {
+        return new Vector2D(0, -1);
+    }
+    static backward()
+    {
+        return new Vector2D(0, -1);
+    } 
+    static right()
+    {
+        return new Vector2D(1, 0);
+    }  
+    static left()
+    {
+        return new Vector2D(-1, 0);
+    }  
 }
