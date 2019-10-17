@@ -40,6 +40,11 @@ class Vector2D {
 		var x = Math.cos(arg);
 		return new Vector2D(x, y);
     }
+    incrementArg(i){
+        var arg = this.getArg();
+        this.setArg(arg + i);
+        return this;
+    }
 
     /* Static methods */
     static up()
@@ -65,5 +70,9 @@ class Vector2D {
     static left()
     {
         return new Vector2D(-1, 0);
-    }  
+    }
+    static zero()
+    {
+        return new Vector2D(0, 0);
+    } 
 }

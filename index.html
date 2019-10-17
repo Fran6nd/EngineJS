@@ -30,7 +30,7 @@
     <script type = "text/javascript">
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
-        scene = new Scene(canvas, ctx);
+        scene = new Scene(canvas, ctx, true);
         scene.instantiate(new GameObject(new Transform(new Vector2D(100, 100), 0, new Vector2D(0, 0), 100)));
         //scene.draw();
         //setInterval(scene.update, 10);

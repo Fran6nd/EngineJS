@@ -1,8 +1,9 @@
 class Scene {
-    constructor(canvas, ctx) {
+    constructor(canvas, ctx, debug = false) {
         this.id = 0;
         this.layers = new Array(10);
         this.uiLayer = new Map();
+        this.debug = debug;
         for (var i = 0; i < this.layers.length; i++) {
             this.layers[i] = new Map();
         }
@@ -72,7 +73,10 @@ class Scene {
         this.update();
         this.updateTransform();
         this.draw();
-        this.debugDraw();
+        if (this.debug)
+        {
+            this.debugDraw();
+        }
         this.t1 = this.t2;
     }
     start() {
