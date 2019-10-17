@@ -21,17 +21,17 @@
 <body>
 
     <canvas id="myCanvas" width="500" height="500" style="border:1px solid #000000;" ></canvas>
-    
     <script type = "text/javascript" src = "scene.js" ></script>
     <script type = "text/javascript" src = "transform.js" ></script>
     <script type = "text/javascript" src = "vector2d.js" ></script>
     <script type = "text/javascript" src = "triangle.js" ></script>
     <script type = "text/javascript" src = "gameObject.js" ></script>
+    <script type = "text/javascript" src = "example/tank.js" ></script>
     <script type = "text/javascript">
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
         scene = new Scene(canvas, ctx, true);
-        scene.instantiate(new GameObject(new Transform(new Vector2D(100, 100), 0, new Vector2D(0, 0), 100)));
+        scene.instantiate(new Tank(new Transform(new Vector2D(100, 100), 0, new Vector2D(0, 0), 100)));
         //scene.draw();
         //setInterval(scene.update, 10);
         setInterval(function(){scene.run();}, 10);
