@@ -40,6 +40,11 @@ class Vector2D {
 		var x = Math.cos(arg);
 		return new Vector2D(x, y);
     }
+    increment(v){
+        this.x += v.x;
+        this.y += v.y;
+        return this;
+    }
     incrementArg(i){
         var arg = this.getArg();
         this.setArg(arg + i);

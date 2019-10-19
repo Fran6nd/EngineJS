@@ -6,6 +6,28 @@ class Tank extends GameObject {
     }
     draw(canvas, ctx) {
         Drawing.rotateAndPaintImage(ctx, this.skin, this.transform.rotation, this.transform.position, -Math.PI / 2);
-        //ctx.drawImage(this.skin, this.transform.position.x - this.skin.width / 2, this.transform.position.y - this.skin.height / 2);
+    }
+    update(dt)
+    {
+        var velocity = Vector2D.zero();
+        var angularVelocity = 0;
+        if (InputManager.get('z').pressed)
+        {
+            velocity.increment(this.transform.forward().mul(10000));
+        }
+        if (InputManager.get('s').pressed)
+        {
+            velocity.increment(this.transform.velocity = this.transform.backward().mul(10000));
+        }
+        if (InputManager.get('d').pressed)
+        {
+            angularVelocity += 200;
+        }
+        if (InputManager.get('q').pressed)
+        {
+            angularVelocity -= 200;
+        }
+        this.transform.velocity = velocity;
+        this.transform.angularVelocity = angularVelocity;
     }
 }

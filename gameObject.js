@@ -18,7 +18,7 @@ class GameObject {
     }
     update(dt)
     {
-        this.transform.velocity = this.transform.forward().mul(1000);
+        //this.transform.velocity = this.transform.forward().mul(1000);
     }
     updateTransform(dt)
     {

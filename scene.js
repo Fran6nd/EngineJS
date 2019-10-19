@@ -1,5 +1,6 @@
 class Scene {
     constructor(canvas, ctx, debug = false) {
+        InputManager.init();
         this.id = 0;
         this.layers = new Array(10);
         this.uiLayer = new Map();
