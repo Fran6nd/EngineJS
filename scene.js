@@ -27,7 +27,7 @@ class Scene {
         }
         for (const [key, value] of this.uiLayer.entries()) {
             value.draw(this.canvas, this.ctx);
-        }       
+        }
         this.ctx.font = "15px Arial";
         this.ctx.fillStyle = "#000000";
         this.ctx.fillText("Score: " + new Date().getTime().toString(10), 0, 20);
@@ -50,7 +50,7 @@ class Scene {
         }
         for (const [key, value] of this.uiLayer.entries()) {
             value.update(this.dt);
-        } 
+        }
     }
     updateTransform() {
         for (var i = 0; i < this.layers.length; i++) {
@@ -58,7 +58,7 @@ class Scene {
                 value.updateTransform(this.dt);
             }
         }
-        
+
         for (const [key, value] of this.uiLayer.entries()) {
             value.updateTransform(dt);
         }
@@ -74,13 +74,12 @@ class Scene {
         this.update();
         this.updateTransform();
         this.draw();
-        if (this.debug)
-        {
+        if (this.debug) {
             this.debugDraw();
         }
         this.t1 = this.t2;
     }
     start() {
-        setInterval(this.run, 10);
+        setInterval(this.run, 16);
     }
 }

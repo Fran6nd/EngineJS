@@ -28,4 +28,9 @@ class Drawing {
         Drawing.drawLine(ctx, up, down);
         Drawing.drawLine(ctx, right, left);
     }
+    static drawTriangle(ctx, p1, p2, p3) {
+        Drawing.drawLine(ctx, p1, p2);
+        Drawing.drawLine(ctx, p3, p2);
+        Drawing.drawLine(ctx, p1, p3);
+    }
 }

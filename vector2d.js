@@ -1,83 +1,77 @@
 class Vector2D {
-    constructor(x, y)
-    {
+    constructor(x, y) {
         this.x = x;
         this.y = y;
     }
     /* Arithmetic operators */
-    add(other){
+    add(other) {
         return new Vector2D(this.x + other.x, this.y + other.y);
     }
-    sub(other){
+    sub(other) {
         return new Vector2D(this.x - other.x, this.y - other.y);
     }
-    mul(other){
+    mul(other) {
         return new Vector2D(this.x * other, this.y * other);
     }
-    div(other){
+    div(other) {
         return new Vector2D(this.x / other, this.y / other);
     }
 
     /* Vector2D methods */
-    getModule(){
+    getModule() {
         return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
     }
-    getArg()
-    {
+    getArg() {
         return Math.atan2(this.y, this.x);
     }
-    setArg(arg){
+    setArg(arg) {
         var module = this.getModule();
-		var y = Math.sin(arg) * module;
-		var x = Math.cos(arg) * module;
+        var y = Math.sin(arg) * module;
+        var x = Math.cos(arg) * module;
         this.x = x;
         this.y = y;
         return this;
     }
-    normalize(){
+    normalize() {
         var arg = this.getArg();
-		var y = Math.sin(arg);
-		var x = Math.cos(arg);
-		return new Vector2D(x, y);
+        var y = Math.sin(arg);
+        var x = Math.cos(arg);
+        return new Vector2D(x, y);
     }
-    increment(v){
+    increment(v) {
         this.x += v.x;
         this.y += v.y;
         return this;
     }
-    incrementArg(i){
+    incrementArg(i) {
         var arg = this.getArg();
         this.setArg(arg + i);
         return this;
     }
+    copy() {
+        return new Vector2D(this.x, this.y);
+    }
 
     /* Static methods */
-    static up()
-    {
+    static up() {
         return new Vector2D(0, 1);
     }
-    static forward()
-    {
+    static forward() {
         return new Vector2D(0, 1);
-    } 
-    static down()
-    {
+    }
+    static down() {
         return new Vector2D(0, -1);
     }
-    static backward()
-    {
+    static backward() {
         return new Vector2D(0, -1);
-    } 
-    static right()
-    {
+    }
+    static right() {
         return new Vector2D(1, 0);
-    }  
-    static left()
-    {
+    }
+    static left() {
         return new Vector2D(-1, 0);
     }
-    static zero()
-    {
+    static zero() {
         return new Vector2D(0, 0);
-    } 
+    }
 }
