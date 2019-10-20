@@ -1,17 +1,23 @@
 class Scene {
     constructor(canvas, ctx, debug = false) {
         InputManager.init();
-        this.id = 0;
-        this.layers = new Array(10);
-        this.uiLayer = new Map();
         this.debug = debug;
-        for (var i = 0; i < this.layers.length; i++) {
-            this.layers[i] = new Map();
-        }
         this.canvas = canvas;
         this.ctx = ctx;
         this.t1 = new Date().getTime();
         this.t2 = new Date().getTime();
+        this.buildMap();
+    }
+    resetMap() {
+        this.id = 0;
+        this.layers = new Array(10);
+        this.uiLayer = new Map();
+        for (var i = 0; i < this.layers.length; i++) {
+            this.layers[i] = new Map();
+        }
+    }
+    buildMap() {
+        this.resetMap();
     }
     instantiate(obj, layer = 0) {
         obj.id = this.id.toString(10);
