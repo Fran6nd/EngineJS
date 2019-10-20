@@ -3,7 +3,7 @@ class Tank extends GameObject {
         super(transform);
         this.skin = new Image();
         this.skin.src = "example/Tank.png";
-        this.colliders.add(new QuadCollider(this.transform, new Vector2D(-25, 25), new Vector2D(25, 25), new Vector2D(-25, -25), new Vector2D(25, -25)))
+        this.colliders.add(new QuadCollider(this.transform, new Vector2D(-20, 14), new Vector2D(20, 14), new Vector2D(-20, -14), new Vector2D(20, -14)))
     }
     draw(canvas, ctx) {
         Drawing.rotateAndPaintImage(ctx, this.skin, this.transform.rotation, this.transform.position, -Math.PI / 2);
