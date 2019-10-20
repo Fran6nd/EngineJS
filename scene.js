@@ -15,6 +15,7 @@ class Scene {
     }
     instantiate(obj, layer = 0) {
         obj.id = this.id.toString(10);
+        obj.layer = layer;
         this.layers[layer].set(obj.id, obj)
         this.id++;
     }
@@ -55,7 +56,7 @@ class Scene {
     updateTransform() {
         for (var i = 0; i < this.layers.length; i++) {
             for (const [key, value] of this.layers[i].entries()) {
-                value.updateTransform(this.dt);
+                value.updateTransform(this);
             }
         }
 
@@ -81,5 +82,26 @@ class Scene {
     }
     start() {
         setInterval(this.run, 16);
+    }
+    canBeHere(obj, layer = -1) {
+        if (layer == -1) {
+            layer = obj.layer;
+            var c1 = obj.colliders;
+            for (const [key, value] of this.layers[layer].entries()) {
+                if (value.colliders.isIntersectingColliders(c1)) {
+                    return false;
+                }
+            }
+        }
+        else {
+            for (var i = 0; i < this.layers.length; i++) {
+                for (const [key, value] of this.layers[layer].entries()) {
+                    if (value.colliders.isIntersectingColliders(c1)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }

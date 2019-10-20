@@ -48,6 +48,16 @@ class Vector2D {
         this.setArg(arg + i);
         return this;
     }
+    decrement(v) {
+        this.x -= v.x;
+        this.y -= v.y;
+        return this;
+    }
+    decrementArg(i) {
+        var arg = this.getArg();
+        this.setArg(arg - i);
+        return this;
+    }
     copy() {
         return new Vector2D(this.x, this.y);
     }
