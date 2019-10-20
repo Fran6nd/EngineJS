@@ -1,5 +1,7 @@
 import re
 import os
+import requests
+
 
 class Builder():
     def __init__(self):
@@ -16,6 +18,7 @@ class Builder():
         self.addfile('EngineJS/gameObject.js')
         self.addfile('EngineJS/colliders/quadCollider.js')
         self.addfile('EngineJS/colliders/triangleCollider.js')
+
     def build(self):
         output = open("EngineJS.js", 'w')
         print('Building...')
@@ -25,5 +28,13 @@ class Builder():
             output.write(file.read())
             file.close()
         output.close()
+        url = 'https://javascript-minifier.com/raw'
+        data = {'input': open('EngineJS.js', 'rb').read()}
+        response = requests.post(url, data=data)
+        output = open("EngineJS.js", 'w')
+        output.write(response.text)
+        output.close()
+
+
     def addfile(self, path):
         self.files.append(path)
