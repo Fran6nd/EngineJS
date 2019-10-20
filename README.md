@@ -9,29 +9,29 @@ As said before, it's based on canvas. The base class using canvas is `scene.js` 
 About collisions: Each `GameObject` has a `Colliders` instance that contains some `Collider` instances that are list of triangles... If after moving, one of the triangle's points is inside any other from other `GameObject` triangle, we undo the movement.
 Here is a basic treeview of the project:<br /><br />
 ```
-+-EngineJS<br />
-|--build.py\<br />
-|--buildTankDemo.py<br />
-|--index.htm<br />
-|--README.md<br />
-|--LICENCE<br />
-|+-EngineJS<br />
-||--scene.js<br />
-||--drawing.js<br />
-||--vector2d.js<br />
-||--triangle.js<br />
-||--collider.js<br />
-||--colliders.js<br />
-||--transform.js<br />
-||--gameObject.js<br />
-||--key.js<br />
-||--inputManager.js<br />
-||+-colliders<br />
-|||--quadCollider.js<br />
-|||--triangleCollider.js<br />
-|+-Example<br />
-||+-tank<br />
-|||--crate.js<br />
-|||--tank.js<br />
-|||--Tank.png<br />
++-EngineJS
+|--build.py
+|--buildTankDemo.py
+|--index.htm
+|--README.md
+|--LICENCE
+|-+-EngineJS
+| |--scene.js
+| |--drawing.js
+| |--vector2d.js
+| |--triangle.js
+| |--collider.js
+| |--colliders.js
+| |--transform.js
+| |--gameObject.js
+| |--key.js
+| |--inputManager.js
+| |-+-colliders
+| | |--quadCollider.js
+| | |--triangleCollider.js
+| +-Example
+| | +-tank
+| | |--crate.js
+| | |--tank.js
+| | |--Tank.png
 ```
