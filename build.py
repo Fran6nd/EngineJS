@@ -1,21 +1,29 @@
 import re
 import os
-myfile = open("output.js", 'w')
-added = list()
-def addfile(f):
 
-
-    file = open(f, 'r+')
-    myfile.write(file.read())
-    file.close()
-def foreachfile(path, ext, cb):
-    for r, d, f in os.walk(path):
-        for file in f:
-            if ext in file:
-
-                if not file in added:
-                    print(file)
-                    added.append(file)
-                    cb(r + '/' + file)
-foreachfile('.', '.js', addfile)
-myfile.close()
+class Builder():
+    def __init__(self):
+        self.files = list()
+        self.addfile('scene.js')
+        self.addfile('drawing.js')
+        self.addfile('key.js')
+        self.addfile('inputManager.js')
+        self.addfile('vector2d.js')
+        self.addfile('transform.js')
+        self.addfile('triangle.js')
+        self.addfile('collider.js')
+        self.addfile('colliders.js')
+        self.addfile('gameObject.js')
+        self.addfile('colliders/quadCollider.js')
+        self.addfile('colliders/triangleCollider.js')
+    def build(self):
+        output = open("EngineJS.js", 'w')
+        print('Building...')
+        for path in self.files:
+            print(path)
+            file = open(path, 'r+')
+            output.write(file.read())
+            file.close()
+        output.close()
+    def addfile(self, path):
+        self.files.append(path)
