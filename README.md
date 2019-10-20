@@ -6,7 +6,7 @@ It was first one ofmy pyhton projects, improved and rewritten here.
 #### This section is WORK-IN-PROGRESS!
 
 As said before, it's based on canvas. The base class using canvas is `scene.js` that should be extended. Any object to draw, updateand move has to extend `GameObject` class from `gameObject.js`. Then you can override following methods: `draw(ctx)`, `update(dt)`...
-About collisions: Each `GameObject` has a `Colliders` instance that contains some `Collider` instances that are list of triangles... If after moving, one of the triangle's points is inside any other from other `GameObject` triangle, we undo the movement.
+About collisions: Each `GameObject` has a `Colliders` instance that contains some `Collider` instances that are list of triangles... If after moving, one of the triangle's points is inside any other from other `GameObject` triangle, we undo the movement.<br />
 Here is a basic treeview of the project:<br /><br />
 ```
 +-EngineJS
