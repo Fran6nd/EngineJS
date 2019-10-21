@@ -33,14 +33,14 @@ class Builder():
             output.write(file.read())
             file.close()
         output.close()
-        url = 'https://javascript-minifier.com/raw'
-        data = {'input': open('build/EngineJS.js', 'r').read()}
-        response = requests.post(url, data=data)
-        simplified = response.text
-        simplified = self.minifyClassNames(simplified)
-        output = open("build/EngineJS.js", 'w')
-        output.write(simplified)
-        output.close()
+        #url = 'https://javascript-minifier.com/raw'
+        #data = {'input': open('build/EngineJS.js', 'r').read()}
+        #response = requests.post(url, data=data)
+        #simplified = response.text
+        #simplified = self.minifyClassNames(simplified)
+        #output = open("build/EngineJS.js", 'w')
+        #output.write(simplified)
+        #output.close()
         index = open('build/index.html', 'w')
         baseIndexFile = open('EngineJS/index.html', 'r')
         index.write(baseIndexFile.read().format(self.mainClassName))

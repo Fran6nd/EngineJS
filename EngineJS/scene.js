@@ -101,12 +101,13 @@ class Scene {
         this.stop();
         target.start();
     }
-    canBeHere(obj, layer = -1) {
+    canBeHere(obj, transform, dtransform, layer = -1) {
         if (layer == -1) {
             layer = obj.layer;
             var c1 = obj.colliders;
             for (const [key, value] of this.layers[layer].entries()) {
-                if (value.colliders.isIntersectingColliders(c1)) {
+                var res = c1.isIntersectingColliders(value.colliders, transform, dtransform);
+                if (res != false) {
                     return false;
                 }
             }
@@ -114,7 +115,8 @@ class Scene {
         else {
             for (var i = 0; i < this.layers.length; i++) {
                 for (const [key, value] of this.layers[layer].entries()) {
-                    if (value.colliders.isIntersectingColliders(c1)) {
+                    var res = value.colliders.isIntersectingColliders(value.colliders, transform, dtransform);
+                    if (res) {
                         return false;
                     }
                 }

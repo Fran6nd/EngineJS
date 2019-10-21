@@ -24,17 +24,17 @@ class GameObject {
 
         this.transform.rotation += deltaRotation;
         this.colliders.update(this.transform);
-        if (!scene.canBeHere(this)) {
+        if (!scene.canBeHere(this, this.transform ,new Transform(deltaPosition, deltaRotation))) {
             this.transform.rotation -= deltaRotation;
         }
         this.transform.position.x += deltaPosition.x;
         this.colliders.update(this.transform);
-        if (!scene.canBeHere(this)) {
+        if (!scene.canBeHere(this, this.transform ,new Transform(deltaPosition, deltaRotation))) {
             this.transform.position.x -= deltaPosition.x;
         }
         this.transform.position.y += deltaPosition.y;
         this.colliders.update(this.transform);
-        if (!scene.canBeHere(this)) {
+        if (!scene.canBeHere(this, this.transform ,new Transform(deltaPosition, deltaRotation))) {
             this.transform.position.y -= deltaPosition.y;
         }
         this.colliders.update(this.transform);

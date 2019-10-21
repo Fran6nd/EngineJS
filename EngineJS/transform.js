@@ -6,6 +6,11 @@ class Transform {
         this.velocity = velocity;
         this.angularVelocity = angularVelocity;
     }
+    increment(t){
+        this.position.increment(t.position);
+        this.rotation += t.rotation;
+        return this;
+    }
     /* Relative direction vectors. */
     forward()
     {
