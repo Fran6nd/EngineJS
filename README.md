@@ -29,8 +29,8 @@ Here is a basic treeview of the project:<br /><br />
 | |-+-colliders
 | | |--quadCollider.js
 | | |--triangleCollider.js
-| +-Example
-| | +-tank
+|-+-example
+| |-+-tank
 | | |--crate.js
 | | |--tank.js
 | | |--Tank.png
