@@ -1,6 +1,7 @@
 import re
 import os
 import requests
+from shutil import copyfile
 
 
 class Builder():
@@ -18,9 +19,12 @@ class Builder():
         self.addfile('EngineJS/gameObject.js')
         self.addfile('EngineJS/colliders/quadCollider.js')
         self.addfile('EngineJS/colliders/triangleCollider.js')
+        self.resources = list()
 
     def build(self):
-        output = open("EngineJS.js", 'w')
+        if not os.path.exists('./build'):
+            os.makedirs('./build')
+        output = open("build/EngineJS.js", 'w')
         print('Building...')
         for path in self.files:
             print(path)
@@ -29,12 +33,27 @@ class Builder():
             file.close()
         output.close()
         url = 'https://javascript-minifier.com/raw'
-        data = {'input': open('EngineJS.js', 'rb').read()}
-        response = requests.post(url, data=data)
-        output = open("EngineJS.js", 'w')
-        output.write(response.text)
-        output.close()
+        #data = {'input': open('build/EngineJS.js', 'r').read()}
+        #response = requests.post(url, data=data)
+        #output = open("EngineJS.js", 'r+')
+        #output.write(response.text)
+        #output.close()
+        index = open('build/index.html', 'w')
+        baseIndexFile = open('EngineJS/index.html', 'r')
+        index.write(baseIndexFile.read().format(self.mainClassName))
+        baseIndexFile.close()
+        index.close()
+        for r in self.resources:
+            output = 'build/' + r
+            if not os.path.exists(os.path.dirname(output)):
+                os.makedirs(os.path.dirname(output))
+            copyfile(r, output)
 
 
     def addfile(self, path):
         self.files.append(path)
+    def addMainScene(self, path, className):
+        self.addfile(path)
+        self.mainClassName = className
+    def addResources(self, path):
+        self.resources.append(path)

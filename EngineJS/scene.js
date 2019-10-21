@@ -6,6 +6,7 @@ class Scene {
         this.ctx = ctx;
         this.t1 = new Date().getTime();
         this.t2 = new Date().getTime();
+        this.updater = null;
         this.buildMap();
     }
     resetMap() {
@@ -87,7 +88,18 @@ class Scene {
         this.t1 = this.t2;
     }
     start() {
-        setInterval(this.run, 16);
+        var scene = this;
+        this.updater = setInterval(function () { scene.run(); }, 10);
+    }
+    stop() {
+        if (this.updater != null) {
+            clearInterval(this.updater);
+        }
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+    switchScene(target) {
+        this.stop();
+        target.start();
     }
     canBeHere(obj, layer = -1) {
         if (layer == -1) {
