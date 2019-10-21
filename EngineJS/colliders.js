@@ -28,6 +28,7 @@ class Colliders {
         this.instantiateId++;
         var id = this.instantiateId.toString(10);
         this.colliders.set(id, collider);
+        collider.id = id;
         return id;
     }
     remove(id) {

@@ -28,13 +28,13 @@ class Triangle {
     }
     isIntersectingTriangle(t, transform, dtransform) {
         if (this.isPointInside(t.p1)) {
-            return new HitPoint(this.p3, t, transform, dtransform, false);
+            return new HitPoint(t.p1, this, transform, dtransform, false);
         }
         if (this.isPointInside(t.p2)) {
-            return new HitPoint(this.p3, t, transform, dtransform, false);
+            return new HitPoint(t.p2, this, transform, dtransform, false);
         }
         if (this.isPointInside(t.p3)) {
-            return new HitPoint(this.p3, t, transform, dtransform, false);
+            return new HitPoint(t.p3, this, transform, dtransform, false);
         }
         if (t.isPointInside(this.p1)) {
             return new HitPoint(this.p1, t, transform, dtransform);
@@ -115,7 +115,7 @@ class HitPoint {
             previousPoint = point.copy().decrement(dtransform.position);
         }
         else {
-           previousPoint = point.copy().increment(dtransform.position);
+            previousPoint = point.copy().increment(dtransform.position);
         }
         if (previousPoint) {
             var crossingSegment = new Segment(previousPoint, point);
