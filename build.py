@@ -35,8 +35,10 @@ class Builder():
         url = 'https://javascript-minifier.com/raw'
         data = {'input': open('build/EngineJS.js', 'r').read()}
         response = requests.post(url, data=data)
+        simplified = response.text
+        simplified = self.minifyClassNames(simplified)
         output = open("build/EngineJS.js", 'w')
-        output.write(response.text)
+        output.write(simplified)
         output.close()
         index = open('build/index.html', 'w')
         baseIndexFile = open('EngineJS/index.html', 'r')
@@ -57,3 +59,17 @@ class Builder():
         self.mainClassName = className
     def addResources(self, path):
         self.resources.append(path)
+    def minifyClassNames(self, f):
+        classNameList = dict()
+        pattern = re.compile(r'class [\w]+')
+        self.index = 0
+        def newClassName():
+            self.index+=1
+            return 'C' + str(self.index)
+        for m in re.findall(pattern, f):
+            name = m.replace('class ', '')
+            if name != self.mainClassName:
+                classNameList.update({name : newClassName()})
+        for n in classNameList:
+            f = f.replace(n, classNameList[n])
+        return f

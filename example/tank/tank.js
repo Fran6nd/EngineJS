@@ -2,7 +2,7 @@ class Tank extends GameObject {
     constructor(transform) {
         super(transform);
         this.skin = new Image();
-        this.skin.src = "example/tank/Tank.png";
+        this.skin.src = "example/tank/tank.png";
         this.colliders.add(new QuadCollider(this.transform, new Vector2D(-20, 14), new Vector2D(20, 14), new Vector2D(-20, -14), new Vector2D(20, -14)))
     }
     draw(canvas, ctx) {
