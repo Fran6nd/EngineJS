@@ -106,18 +106,22 @@ class Scene {
             layer = obj.layer;
             var c1 = obj.colliders;
             for (const [key, value] of this.layers[layer].entries()) {
-                var res = c1.isIntersectingColliders(value.colliders, transform, dtransform);
-                if (res != false) {
-                    return false;
+                if (key != obj.id) {
+                    var res = c1.isIntersectingColliders(value.colliders, transform, dtransform);
+                    if (res != false) {
+                        return false;
+                    }
                 }
             }
         }
         else {
             for (var i = 0; i < this.layers.length; i++) {
                 for (const [key, value] of this.layers[layer].entries()) {
-                    var res = value.colliders.isIntersectingColliders(value.colliders, transform, dtransform);
-                    if (res) {
-                        return false;
+                    if (key != obj.id) {
+                        var res = value.colliders.isIntersectingColliders(value.colliders, transform, dtransform);
+                        if (res) {
+                            return false;
+                        }
                     }
                 }
             }
