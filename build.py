@@ -19,6 +19,7 @@ class Builder():
         self.addfile('EngineJS/gameObject.js')
         self.addfile('EngineJS/colliders/quadCollider.js')
         self.addfile('EngineJS/colliders/triangleCollider.js')
+        self.addfile('EngineJS/colliders/circleCollider.js')
         self.resources = list()
 
     def build(self):
@@ -51,25 +52,28 @@ class Builder():
                 os.makedirs(os.path.dirname(output))
             copyfile(r, output)
 
-
     def addfile(self, path):
         self.files.append(path)
+
     def addMainScene(self, path, className):
         self.addfile(path)
         self.mainClassName = className
+
     def addResources(self, path):
         self.resources.append(path)
+
     def minifyClassNames(self, f):
         classNameList = dict()
         pattern = re.compile(r'class [\w]+')
         self.index = 0
+
         def newClassName():
-            self.index+=1
+            self.index += 1
             return 'C' + str(self.index)
         for m in re.findall(pattern, f):
             name = m.replace('class ', '')
             if name != self.mainClassName:
-                classNameList.update({name : newClassName()})
+                classNameList.update({name: newClassName()})
         for n in classNameList:
             f = f.replace(n, classNameList[n])
         return f
