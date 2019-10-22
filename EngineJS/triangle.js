@@ -68,7 +68,7 @@ class Segment {
             this.a = (p1.y - p2.y) / (p1.x - p2.x);
             if (this.a == 0) {
                 this.horizontal = true;
-                this.b = p1.x;
+                this.b = p1.y;
             }
             else {
                 this.b = p1.y - p1.x * this.a;
@@ -123,16 +123,17 @@ class HitPoint {
             segments.push(new Segment(triangle.p1, triangle.p2));
             segments.push(new Segment(triangle.p2, triangle.p3));
             segments.push(new Segment(triangle.p3, triangle.p1));
-            var segmentsWithCrossingBoundingBoxes = new Array();
             var crossingSegmentBoundingbox = crossingSegment.getBoundingBox();
             for (const s of segments) {
                 var bbox = s.getBoundingBox();
                 if (crossingSegmentBoundingbox.intersectOther(bbox)) {
                     var intersection = s.getLine().isIntersectingLine(crossingSegment.getLine())
                     if (intersection) {
-                        if (crossingSegmentBoundingbox.isPointInside(intersection) && bbox.isPointInside(intersection)) {
+                        //console.log(intersection.x.toString() + ' ' + intersection.y.toString());
+                        //if (crossingSegmentBoundingbox.isPointInside(intersection) && bbox.isPointInside(intersection))
+                        {
                             /* We know wich segment we are intesecting, at wich point... */
-                            console.log('okay')
+                            console.log(intersection.x.toString() + ' ' + intersection.y.toString());
                             this.pos = intersection;
                             this.segmentHit = s;
                         }
@@ -141,11 +142,18 @@ class HitPoint {
             }
         }
     }
+    draw(ctx)
+    {
+        if (this.pos)
+            Drawing.drawCross(ctx, this.pos);
+    }
 }
 class Line {
     constructor(a, b) {
         this.a = a;
         this.b = b;
+        this.vertical = true ? a == null : false;
+        this.horizontal = true ? a == 0 : false;
     }
     isPointOnMe(point) {
         var expectedValue = this.a * point.x + this.b;
@@ -153,12 +161,13 @@ class Line {
     }
     isIntersectingLine(l) {
         if (l.a == this.a) {
+            console.log('Error Case');
             return false;
-
         }
         else {
             var x = (this.b - l.b) / (l.a - this.a);
             var y = this.a * x + this.b;
+            console.log('a1: ' + this.a.toString() + ' b1: ' + this.b.toString() + '  a2: ' + l.a.toString() + ' b2: ' + l.b.toString());
             return new Vector2D(x, y);
         }
 

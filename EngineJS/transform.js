@@ -30,10 +30,10 @@ class Transform {
     }
     left()
     {
-        return Vector2D.forward().setArg(this.rotation + Math.PI);
+        return Vector2D.forward().incrementArg(Math.PI);
     }
     right()
     {
-        return Vector2D.forward().setArg(this.rotation + Math.PI).mul(-1);
+        return Vector2D.forward().decrementArg(Math.PI);
     }
 }
