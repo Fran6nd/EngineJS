@@ -60,7 +60,7 @@ class Segment {
         this.horizontal = null;
         /* Equation of line: y = ax + b. */
         if (p1.x - p2.x == 0) {
-            this.a = 0;
+            this.a = null;
             this.b = null;
             this.vertical = true;
         }
@@ -76,7 +76,7 @@ class Segment {
         }
     }
     getLine() {
-        return new Line(this.a, this.b);
+        return new Line(this.a, this.b, this.p1.copy());
     }
     getBoundingBox() {
         return new BoundingBox(this.p1, this.p2);
@@ -112,10 +112,10 @@ class HitPoint {
         var previousPoint;
         if (pointMoved) {
             /* Let's get the previous point position: */
-            previousPoint = point.copy().decrement(dtransform.position);
+            previousPoint = point.copy().decrement(dtransform.position.decrementArg(dtransform.rotation));
         }
         else {
-            previousPoint = point.copy().increment(dtransform.position);
+            previousPoint = point.copy().increment(dtransform.position.incrementArg(dtransform.rotation));
         }
         if (previousPoint) {
             var crossingSegment = new Segment(previousPoint, point);
@@ -149,11 +149,12 @@ class HitPoint {
     }
 }
 class Line {
-    constructor(a, b) {
+    constructor(a, b, point) {
         this.a = a;
         this.b = b;
         this.vertical = true ? a == null : false;
         this.horizontal = true ? a == 0 : false;
+        this.aPoint = point;
     }
     isPointOnMe(point) {
         var expectedValue = this.a * point.x + this.b;
@@ -164,6 +165,14 @@ class Line {
             console.log('Error Case');
             return false;
         }
+        else if (l.vertical || this.vertical) {
+            var vert = l.vertical ? l.copy() : this.copy();
+            var other = !l.vertical ? l.copy() : this.copy();
+            var x = vert.aPoint.x;
+            var y = other.a * x + other.b;
+            return new Vector2D(x, y);
+
+        }
         else {
             var x = (this.b - l.b) / (l.a - this.a);
             var y = this.a * x + this.b;
@@ -171,5 +180,9 @@ class Line {
             return new Vector2D(x, y);
         }
 
+    }
+    copy()
+    {
+        return new Line(this.a, this.b, this.aPoint);
     }
 }
