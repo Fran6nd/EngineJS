@@ -109,9 +109,8 @@ class Scene {
                 if (key != obj.id) {
                     var res = c1.isIntersectingColliders(value.colliders, transform, dtransform);
                     if (res != false) {
-                        if(res.pos)
-                            this.instantiate(new GameObject(new Transform(res.pos, 0)));
-                        res.draw(this.ctx);
+                        //if(res.pos)
+                            //this.instantiate(new GameObject(new Transform(res.pos, 0)));
                         return false;
                     }
                 }
@@ -123,7 +122,6 @@ class Scene {
                     if (key != obj.id) {
                         var res = value.colliders.isIntersectingColliders(value.colliders, transform, dtransform);
                         if (res) {
-                            res.draw(this.ctx);
                             return false;
                         }
                     }

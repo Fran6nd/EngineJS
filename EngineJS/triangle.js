@@ -81,6 +81,21 @@ class Segment {
     getBoundingBox() {
         return new BoundingBox(this.p1, this.p2);
     }
+    isIntersectingOther(s) {
+        var bbox = s.getBoundingBox();
+        var myBbox = this.getBoundingBox();
+        if (myBbox.intersectOther(bbox)) {
+            var intersection = s.getLine().isIntersectingLine(this.getLine())
+            if (intersection) {
+
+                /* We know wich segment we are intesecting, at wich point... */
+                console.log(intersection.x.toString() + ' ' + intersection.y.toString());
+                return intersection;
+
+            }
+        }
+        return false;
+    }
 }
 class BoundingBox {
     constructor(p1, p2) {
@@ -125,25 +140,16 @@ class HitPoint {
             segments.push(new Segment(triangle.p3, triangle.p1));
             var crossingSegmentBoundingbox = crossingSegment.getBoundingBox();
             for (const s of segments) {
-                var bbox = s.getBoundingBox();
-                if (crossingSegmentBoundingbox.intersectOther(bbox)) {
-                    var intersection = s.getLine().isIntersectingLine(crossingSegment.getLine())
-                    if (intersection) {
-                        //console.log(intersection.x.toString() + ' ' + intersection.y.toString());
-                        //if (crossingSegmentBoundingbox.isPointInside(intersection) && bbox.isPointInside(intersection))
-                        {
-                            /* We know wich segment we are intesecting, at wich point... */
-                            console.log(intersection.x.toString() + ' ' + intersection.y.toString());
-                            this.pos = intersection;
-                            this.segmentHit = s;
-                        }
-                    }
+                var intersection = s.isIntersectingOther(crossingSegment);
+                if(intersection)
+                {
+                    this.intersection = intersection;
+                    this.segment = s;
                 }
             }
         }
     }
-    draw(ctx)
-    {
+    draw(ctx) {
         if (this.pos)
             Drawing.drawCross(ctx, this.pos);
     }
@@ -181,8 +187,7 @@ class Line {
         }
 
     }
-    copy()
-    {
+    copy() {
         return new Line(this.a, this.b, this.aPoint);
     }
 }
