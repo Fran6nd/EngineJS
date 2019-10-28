@@ -17,29 +17,4 @@ class GameObject {
     }
     update(dt) {
     }
-    updateTransform(scene) {
-        if (this.transform.velocity.x != 0 || this.transform.velocity.y != 0 || this.transform.angularVelocity.x != 0) {
-            var dt = scene.dt;
-            var deltaRotation = this.transform.angularVelocity * dt;
-            var deltaPosition = this.transform.velocity.mul(dt);
-
-            this.transform.rotation += deltaRotation;
-            this.colliders.update(this.transform);
-            if (!scene.canBeHere(this, this.transform, new Transform(deltaPosition, deltaRotation))) {
-                this.transform.rotation -= deltaRotation;
-            }
-            this.transform.position.x += deltaPosition.x;
-            this.colliders.update(this.transform);
-            if (!scene.canBeHere(this, this.transform, new Transform(deltaPosition, deltaRotation))) {
-                this.transform.position.x -= deltaPosition.x;
-            }
-            this.transform.position.y += deltaPosition.y;
-            this.colliders.update(this.transform);
-            if (!scene.canBeHere(this, this.transform, new Transform(deltaPosition, deltaRotation))) {
-                this.transform.position.y -= deltaPosition.y;
-            }
-            this.colliders.update(this.transform);
-        }
-        this.colliders.update(this.transform);
-    }
 }

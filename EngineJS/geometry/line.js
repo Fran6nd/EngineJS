@@ -12,7 +12,6 @@ class Line {
     }
     isIntersectingLine(l) {
         if (l.a == this.a) {
-            console.log('Error Case');
             return false;
         }
         else if (l.vertical || this.vertical) {
@@ -26,7 +25,6 @@ class Line {
         else {
             var x = (this.b - l.b) / (l.a - this.a);
             var y = this.a * x + this.b;
-            console.log('a1: ' + this.a.toString() + ' b1: ' + this.b.toString() + '  a2: ' + l.a.toString() + ' b2: ' + l.b.toString());
             return new Vector2D(x, y);
         }
 

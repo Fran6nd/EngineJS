@@ -79,6 +79,9 @@ class HitPoint {
                 {
                     this.intersection = intersection;
                     this.segment = s;
+                    var furthestPoint = s.p1.sub(intersection).getModule() <= s.p1.sub(intersection).getModule() ? s.p1 : s.p2;
+                    var newMovement = furthestPoint.sub(intersection).normalize();
+                    console.log(intersection.sub(furthestPoint).getArg() - intersection.sub(previousPoint).getArg() + Math.PI / 2);
                 }
             }
         }

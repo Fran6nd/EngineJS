@@ -11,6 +11,15 @@ class Transform {
         this.rotation += t.rotation;
         return this;
     }
+    decrement(t){
+        this.position.decrement(t.position);
+        this.rotation -= t.rotation;
+        return this;
+    }
+    copy()
+    {
+        return new Transform(this.position.copy(), this.rotation, this.velocity.copy(), this.angularVelocity);
+    }
     /* Relative direction vectors. */
     forward()
     {
