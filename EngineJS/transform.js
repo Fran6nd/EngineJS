@@ -1,5 +1,5 @@
 class Transform {
-    constructor(position = new Vector2D(0,0), rotation = 0, velocity = new Vector2D(0,0), angularVelocity = 0)
+    constructor(position, rotation, velocity = new Vector2D(0,0), angularVelocity = 0)
     {
         this.position = position;
         this.rotation = rotation;

@@ -67,7 +67,9 @@ class HitPoint {
             previousPoint = point.copy().increment(dtransform.position.incrementArg(dtransform.rotation));
         }
         if (previousPoint) {
-            var crossingSegment = new Segment(previousPoint, point);
+            var crossingSegmentDir = pointMoved ? point.sub(previousPoint) : point.sub(previousPoint).mul(-1);
+            var crossingSegment;
+            crossingSegment = new Segment(previousPoint, point);
             var segments = new Array();
             segments.push(new Segment(triangle.p1, triangle.p2));
             segments.push(new Segment(triangle.p2, triangle.p3));
@@ -80,13 +82,13 @@ class HitPoint {
                 {
                     this.intersection = intersection;
                     this.segment = s;
-                    this.incomingVector = new Vector2D(intersection.x - previousPoint.x, intersection.y - previousPoint.y)
+                    this.incomingVector = new Vector2D(point.x - previousPoint.x, point.y - previousPoint.y);
                     var furthestPoint = s.p1.sub(intersection).getModule() <= s.p1.sub(intersection).getModule() ? s.p1 : s.p2;
                     var closestPoint = s.p1.sub(intersection).getModule() > s.p1.sub(intersection).getModule() ? s.p1 : s.p2;
                     //var biggestAnglePoint = s.p1.getArg() - s.getArg() >= s.p2.getArg() - s.getArg() ? s.p1 : s.p2;
                     var newMovement = intersection.sub(furthestPoint).normalize();
                     this.angle = newMovement.getArg() + this.incomingVector.getArg();
-                    this.angle = this.incomingVector.getArg();
+                    this.angle = crossingSegmentDir.getArg();
                     return;
                 }
             }
