@@ -8,7 +8,12 @@ class BoundingBox {
         this.p4 = new Vector2D(this.maxPoint.x, this.maxPoint.y);
     }
     isPointInside(p) {
-        return p.x >= this.minPoint.x && p.y >= this.minPoint.y && p.x <= this.maxPoint.x && p.y <= this.maxPoint.y;
+        if (p) {
+            var _p = p.round();
+            if (_p.x >= this.minPoint.x && _p.y >= this.minPoint.y && _p.x <= this.maxPoint.x && _p.y <= this.maxPoint.y)
+                return true;
+        }
+        return false;
     }
     intersectOther(box) {
         if (this.isPointInside(box.p1) || this.isPointInside(box.p2) || this.isPointInside(box.p3) || this.isPointInside(box.p4)) {

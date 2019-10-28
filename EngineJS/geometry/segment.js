@@ -9,6 +9,7 @@ class Segment {
             this.a = null;
             this.b = null;
             this.vertical = true;
+            this.x = p1.x;
         }
         else {
             this.a = (p1.y - p2.y) / (p1.x - p2.x);
@@ -27,15 +28,19 @@ class Segment {
     getBoundingBox() {
         return new BoundingBox(this.p1, this.p2);
     }
+    round() {
+        return new Segment(this.p1.round(), this.p2.round());
+    }
     isIntersectingOther(s) {
-        var bbox = s.getBoundingBox();
-        var myBbox = this.getBoundingBox();
+        var _s = s.round();
+        var _this = this.round();
+        var bbox = _s.getBoundingBox();
+        var myBbox = _this.getBoundingBox();
         if (myBbox.intersectOther(bbox)) {
-            var intersection = s.getLine().isIntersectingLine(this.getLine())
-            if (intersection) {
+            var intersection = _s.getLine().isIntersectingLine(_this.getLine());
+            if (_s.getBoundingBox().isPointInside(intersection)) {
                 /* We know wich segment we are intesecting, at wich point... */
                 return intersection;
-
             }
         }
         return false;

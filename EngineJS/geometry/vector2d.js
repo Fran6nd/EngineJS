@@ -58,6 +58,9 @@ class Vector2D {
         this.setArg(arg - i);
         return this;
     }
+    round() {
+        return new Vector2D(this.x != null ? Math.round(this.x) : null,this.y != null ? Math.round(this.y) : null);
+    }
     copy() {
         return new Vector2D(this.x, this.y);
     }

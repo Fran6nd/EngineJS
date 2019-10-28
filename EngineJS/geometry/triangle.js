@@ -72,18 +72,24 @@ class HitPoint {
             segments.push(new Segment(triangle.p1, triangle.p2));
             segments.push(new Segment(triangle.p2, triangle.p3));
             segments.push(new Segment(triangle.p3, triangle.p1));
-            var crossingSegmentBoundingbox = crossingSegment.getBoundingBox();
             for (const s of segments) {
                 var intersection = s.isIntersectingOther(crossingSegment);
+                //console.log(s);
+
                 if(intersection)
                 {
                     this.intersection = intersection;
                     this.segment = s;
+                    this.incomingVector = new Vector2D(intersection.x - previousPoint.x, intersection.y - previousPoint.y)
                     var furthestPoint = s.p1.sub(intersection).getModule() <= s.p1.sub(intersection).getModule() ? s.p1 : s.p2;
-                    var newMovement = furthestPoint.sub(intersection).normalize();
-                    console.log(intersection.sub(furthestPoint).getArg() - intersection.sub(previousPoint).getArg() + Math.PI / 2);
+                    var closestPoint = s.p1.sub(intersection).getModule() > s.p1.sub(intersection).getModule() ? s.p1 : s.p2;
+                    //var biggestAnglePoint = s.p1.getArg() - s.getArg() >= s.p2.getArg() - s.getArg() ? s.p1 : s.p2;
+                    var newMovement = intersection.sub(furthestPoint).normalize();
+                    this.angle = newMovement.getArg() + this.incomingVector.getArg();
+                    return;
                 }
             }
+           //console.log("PROBLEM");
         }
     }
     draw(ctx) {
