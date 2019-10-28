@@ -31,8 +31,6 @@ class Line {
         else {
             var x = (this.b - l.b) / (l.a - this.a);
             var y = this.a * x + this.b;
-            console.log(x);
-            console.log(y);
             return new Vector2D(x, y);
         }
 

@@ -86,10 +86,11 @@ class HitPoint {
                     //var biggestAnglePoint = s.p1.getArg() - s.getArg() >= s.p2.getArg() - s.getArg() ? s.p1 : s.p2;
                     var newMovement = intersection.sub(furthestPoint).normalize();
                     this.angle = newMovement.getArg() + this.incomingVector.getArg();
+                    this.angle = this.incomingVector.getArg();
                     return;
                 }
             }
-           //console.log("PROBLEM");
+           console.log("PROBLEM");
         }
     }
     draw(ctx) {
