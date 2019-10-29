@@ -36,6 +36,30 @@ class Segment {
         var bbox = _s.getBoundingBox();
         var myBbox = _this.getBoundingBox();
         if (myBbox.intersectOther(bbox)) {
+            if(this.getLine().a == s.getLine().a && this.getLine().a != null)
+            {
+                if(this.getLine().a == null)
+                {
+
+                }
+                else if(this.getLine().a == 0)
+                {
+
+                }
+                else{
+                console.log('=======');
+                var thisMinX = Math.min(this.p1.x, this.p2.x);
+                var thisMaxX = Math.min(this.p1.x, this.p2.x);
+                var sMinX = Math.min(s.p1.x, s.p2.x);
+                var sMaxX = Math.min(s.p1.x, s.p2.x);
+                var minCommonX = Math.max(thisMinX, sMinX);
+                var maxCommonX = Math.min(thisMaxX, sMaxX);
+                var delta = maxCommonX - minCommonX;
+                var x = minCommonX - delta / 2;
+                var y = this.getLine().a * x + this.getLine().b;
+                return new Vector2D(x, y);
+                }
+            }
             var intersection = s.getLine().isIntersectingLine(this.getLine());
             if (s.getBoundingBox().isPointInside(intersection)) {
                 /* We know wich segment we are intesecting, at wich point... */

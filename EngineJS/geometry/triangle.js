@@ -74,11 +74,11 @@ class HitPoint {
             crossingSegmentDir = crossingSegmentDir.normalize();
             crossingSegmentDir = point.sub(previousPoint);
             var crossingSegment;
-            crossingSegment = new Segment(previousPoint.sub(crossingSegmentDir), point.add(crossingSegmentDir));
+            crossingSegment = new Segment(previousPoint.sub(crossingSegmentDir), point.add(crossingSegmentDir)).round();
             var segments = new Array();
-            segments.push(new Segment(triangle.p1, triangle.p2));
-            segments.push(new Segment(triangle.p2, triangle.p3));
-            segments.push(new Segment(triangle.p3, triangle.p1));
+            segments.push(new Segment(triangle.p1, triangle.p2).round());
+            segments.push(new Segment(triangle.p2, triangle.p3).round());
+            segments.push(new Segment(triangle.p3, triangle.p1).round());
             for (const s of segments) {
                 var intersection = s.isIntersectingOther(crossingSegment);
                 //console.log(s);

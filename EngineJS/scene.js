@@ -113,6 +113,9 @@ class Scene {
                     if (res != false) {
                         obj.transform.decrement(deltaTransform);
                         obj.colliders.update(obj.transform);
+                        if(res.intersection)
+                            this.instantiate(new GameObject(new Transform(res.intersection, res.angle)));
+                        console.log(res.intersection);
                         break;
                     }
                 }
