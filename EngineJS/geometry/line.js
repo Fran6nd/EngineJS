@@ -12,7 +12,6 @@ class Line {
     }
     isIntersectingLine(l) {
         if (l.a == this.a) {
-            console.log("Error");
             return false;
         }
         else if (l.vertical || this.vertical) {

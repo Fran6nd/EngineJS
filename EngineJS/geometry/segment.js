@@ -5,21 +5,20 @@ class Segment {
         this.vertical = null;
         this.horizontal = null;
         /* Equation of line: y = ax + b. */
-        if (p1.x - p2.x == 0) {
+        if (p1.x == p2.x) {
             this.a = null;
             this.b = null;
             this.vertical = true;
             this.x = p1.x;
         }
+        else if (p1.y == p2.y) {
+            this.a = 0;
+            this.b = p1.x;
+            this.horizontal = true;
+        }
         else {
             this.a = (p1.y - p2.y) / (p1.x - p2.x);
-            if (this.a == 0) {
-                this.horizontal = true;
-                this.b = p1.y;
-            }
-            else {
-                this.b = p1.y - p1.x * this.a;
-            }
+            this.b = p1.y - p1.x * this.a;
         }
     }
     getLine() {
@@ -32,13 +31,13 @@ class Segment {
         return new Segment(this.p1.round(), this.p2.round());
     }
     isIntersectingOther(s) {
-        var _s = s.round();
-        var _this = this.round();
+        var _s = s;
+        var _this = this;
         var bbox = _s.getBoundingBox();
         var myBbox = _this.getBoundingBox();
         if (myBbox.intersectOther(bbox)) {
-            var intersection = _s.getLine().isIntersectingLine(_this.getLine());
-            if (_s.getBoundingBox().isPointInside(intersection)) {
+            var intersection = s.getLine().isIntersectingLine(this.getLine());
+            if (s.getBoundingBox().isPointInside(intersection)) {
                 /* We know wich segment we are intesecting, at wich point... */
                 return intersection;
             }

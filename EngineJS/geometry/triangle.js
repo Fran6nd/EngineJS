@@ -61,15 +61,20 @@ class HitPoint {
         var previousPoint;
         if (pointMoved) {
             /* Let's get the previous point position: */
-            previousPoint = point.copy().decrement(dtransform.position.decrementArg(dtransform.rotation));
+            previousPoint = point.copy().decrement(dtransform.position).decrementArg(dtransform.rotation);
         }
         else {
-            previousPoint = point.copy().increment(dtransform.position.incrementArg(dtransform.rotation));
+            previousPoint = point.copy().increment(dtransform.position).incrementArg(dtransform.rotation);
+            var tmp = previousPoint.copy();
+            previousPoint = point.copy();
+            point = tmp;
         }
         if (previousPoint) {
             var crossingSegmentDir = pointMoved ? point.sub(previousPoint) : point.sub(previousPoint).mul(-1);
+            crossingSegmentDir = crossingSegmentDir.normalize();
+            crossingSegmentDir = point.sub(previousPoint);
             var crossingSegment;
-            crossingSegment = new Segment(previousPoint, point);
+            crossingSegment = new Segment(previousPoint.sub(crossingSegmentDir), point.add(crossingSegmentDir));
             var segments = new Array();
             segments.push(new Segment(triangle.p1, triangle.p2));
             segments.push(new Segment(triangle.p2, triangle.p3));

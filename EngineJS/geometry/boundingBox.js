@@ -9,7 +9,7 @@ class BoundingBox {
     }
     isPointInside(p) {
         if (p) {
-            var _p = p.round();
+            var _p = p;
             if (_p.x >= this.minPoint.x && _p.y >= this.minPoint.y && _p.x <= this.maxPoint.x && _p.y <= this.maxPoint.y)
                 return true;
         }
@@ -21,6 +21,22 @@ class BoundingBox {
         }
         if (box.isPointInside(this.p1) || box.isPointInside(this.p2) || box.isPointInside(this.p3) || box.isPointInside(this.p4)) {
             return true;
+        }
+        if ((box.minPoint.y == box.maxPoint.y)||(this.minPoint.y == this.maxPoint.y)) {
+            if ((this.minPoint.x >= box.minPoint.x && this.minPoint.x <= box.maxPoint.x) || (this.maxPoint.x >= box.minPoint.x && this.maxPoint.x <= box.maxPoint.x)) {
+                return true;
+            }
+            if ((box.minPoint.x >= this.minPoint.x && box.minPoint.x <= this.maxPoint.x) || (box.maxPoint.x >= this.minPoint.x && box.maxPoint.x <= this.maxPoint.x)) {
+                return true;
+            }
+        }
+        if ((box.minPoint.x == box.maxPoint.x)||(this.minPoint.x == this.maxPoint.x)) {
+            if ((this.minPoint.y >= box.minPoint.y && this.minPoint.y <= box.maxPoint.y) || (this.maxPoint.y >= box.minPoint.y && this.maxPoint.y <= box.maxPoint.y)) {
+                return true;
+            }
+            if ((box.minPoint.y >= this.minPoint.y && box.minPoint.y <= this.maxPoint.y) || (box.maxPoint.y >= this.minPoint.y && box.maxPoint.y <= this.maxPoint.y)) {
+                return true;
+            }
         }
         return false;
     }
