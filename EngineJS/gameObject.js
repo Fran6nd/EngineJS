@@ -17,26 +17,4 @@ class GameObject {
     }
     update(dt) {
     }
-    updateTransform(scene) {
-        var dt = scene.dt;
-        var deltaRotation = this.transform.angularVelocity * dt;
-        var deltaPosition = this.transform.velocity.mul(dt);
-
-        this.transform.rotation += deltaRotation;
-        this.colliders.update(this.transform);
-        if (!scene.canBeHere(this)) {
-            this.transform.rotation -= deltaRotation;
-        }
-        this.transform.position.x += deltaPosition.x;
-        this.colliders.update(this.transform);
-        if (!scene.canBeHere(this)) {
-            this.transform.position.x -= deltaPosition.x;
-        }
-        this.transform.position.y += deltaPosition.y;
-        this.colliders.update(this.transform);
-        if (!scene.canBeHere(this)) {
-            this.transform.position.y -= deltaPosition.y;
-        }
-        this.colliders.update(this.transform);
-    }
 }

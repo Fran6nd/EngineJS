@@ -13,12 +13,13 @@ class Collider {
             t1.setTransform(transform);
         }
     }
-    isIntersectingCollider(col) {
+    isIntersectingCollider(col, transform, dtransform) {
         if (col.enabled) {
-            for (const t1 of col.triangles) {
-                for (const t2 of this.triangles) {
-                    if (t1.isIntersectingTriangle(t2)) {
-                        return true;
+            for (const t1 of this.triangles) {
+                for (const t2 of col.triangles) {
+                    var res = t1.isIntersectingTriangle(t2, transform, dtransform);
+                    if (res) {
+                        return res;
                     }
                 }
             }

@@ -63,12 +63,8 @@ class Scene {
     updateTransform() {
         for (var i = 0; i < this.layers.length; i++) {
             for (const [key, value] of this.layers[i].entries()) {
-                value.updateTransform(this);
+                this.moveGameObject(value);
             }
-        }
-
-        for (const [key, value] of this.uiLayer.entries()) {
-            value.updateTransform(dt);
         }
     }
     delete(id) {
@@ -101,25 +97,30 @@ class Scene {
         this.stop();
         target.start();
     }
-    canBeHere(obj, layer = -1) {
-        if (layer == -1) {
-            layer = obj.layer;
+    moveGameObject(obj) {
+        obj.colliders.update(obj.transform);
+        if (obj.transform.velocity.x != 0 || obj.transform.velocity.y != 0 || obj.transform.angularVelocity.x != 0) {
+            var deltaRotation = obj.transform.angularVelocity * this.dt;
+            var deltaPosition = obj.transform.velocity.mul(this.dt);
+            var deltaTransform = new Transform(deltaPosition, deltaRotation)
+            obj.transform.increment(deltaTransform);
+            obj.colliders.update(obj.transform);
+            var layer = obj.layer;
             var c1 = obj.colliders;
             for (const [key, value] of this.layers[layer].entries()) {
-                if (value.colliders.isIntersectingColliders(c1)) {
-                    return false;
-                }
-            }
-        }
-        else {
-            for (var i = 0; i < this.layers.length; i++) {
-                for (const [key, value] of this.layers[layer].entries()) {
-                    if (value.colliders.isIntersectingColliders(c1)) {
-                        return false;
+                if (key != obj.id) {
+                    var res = c1.isIntersectingColliders(value.colliders, obj.transform.copy(), deltaTransform.copy());
+                    if (res != false) {
+                        obj.transform.decrement(deltaTransform);
+                        obj.colliders.update(obj.transform);
+                        if(res.intersection)
+                            this.instantiate(new GameObject(new Transform(res.intersection, res.angle)));
+                        console.log(res.intersection);
+                        break;
                     }
                 }
             }
+
         }
-        return true;
     }
 }
