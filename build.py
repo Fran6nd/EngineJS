@@ -18,6 +18,7 @@ class Builder():
         self.addfile('EngineJS/geometry/line.js')
         self.addfile('EngineJS/geometry/segment.js')
         self.addfile('EngineJS/geometry/boundingBox.js')
+        self.addfile('EngineJS/geometry/hitPoint.js')
         self.addfile('EngineJS/collider.js')
         self.addfile('EngineJS/colliders.js')
         self.addfile('EngineJS/gameObject.js')
