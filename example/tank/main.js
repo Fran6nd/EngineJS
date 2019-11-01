@@ -6,6 +6,5 @@ class Main extends Scene {
         this.instantiate(new Crate(new Transform(new Vector2D(80, 300), 0)));
         this.instantiate(new Crate(new Transform(new Vector2D(300, 80), 0)));
         this.instantiate(new Crate(new Transform(new Vector2D(0, 80), Math.PI/4)));
-
     }
 }

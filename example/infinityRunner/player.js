@@ -1,7 +1,7 @@
 class Player extends GameObject {
     constructor(transform) {
         super(transform);
-        this.colliders.add(new QuadCollider(this.transform, new Vector2D(-20, 14), new Vector2D(20, 14), new Vector2D(-20, -14), new Vector2D(20, -14)));
+        this.colliders.add(new QuadCollider(this.transform, new Vector2D(-10, 24), new Vector2D(10, 24), new Vector2D(-10, -14), new Vector2D(10, -14)));
         this.flying = true;
         this.jumpHeight = 100;
         this.groundHeight = null;
@@ -28,7 +28,6 @@ class Player extends GameObject {
     }
     onCollision(scene, obj) {
         if (obj.hasTag('ground')) {
-            //this.transform.velocity.y = this.transform.velocity.y * -1;
             this.flying = false;
             this.groundHeight = this.transform.position.y
         }

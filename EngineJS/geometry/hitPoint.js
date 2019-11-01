@@ -1,10 +1,9 @@
 
 class HitPoint {
     constructor(point, triangle, transform, dtransform, pointMoved = true) {
-        /* Base on https://martin-thoma.com/how-to-check-if-two-line-segments-intersect/ */
-        /* If one of the moved points is inside a triangle: */
         this.pos = null;
         var previousPoint;
+        /* If the point inside the triangle is one of the moved triangle or is one of a static one. */
         if (pointMoved) {
             /* Let's get the previous point position: */
             previousPoint = point.copy().decrement(dtransform.position).decrementArg(dtransform.rotation);
@@ -16,10 +15,13 @@ class HitPoint {
             point = tmp;
         }
         if (previousPoint) {
+            /* Here we calculate the intersection point. */
+            /* FIXME! Move this code at his right place... */
             var crossingSegmentDir = pointMoved ? point.sub(previousPoint) : point.sub(previousPoint).mul(-1);
             crossingSegmentDir = crossingSegmentDir.normalize();
             crossingSegmentDir = point.sub(previousPoint);
             var crossingSegment;
+            /* Make the crossing segment longer... */
             crossingSegment = new Segment(previousPoint.sub(crossingSegmentDir), point.add(crossingSegmentDir)).round();
             var segments = new Array();
             segments.push(new Segment(triangle.p1, triangle.p2).round());
@@ -27,7 +29,6 @@ class HitPoint {
             segments.push(new Segment(triangle.p3, triangle.p1).round());
             for (const s of segments) {
                 var intersection = s.isIntersectingOther(crossingSegment);
-                //console.log(s);
 
                 if(intersection)
                 {
@@ -42,6 +43,7 @@ class HitPoint {
                     return;
                 }
             }
+           /* Means we didn't find a point of intersection, but we know there is one. */
            console.log("PROBLEM");
         }
     }

@@ -31,10 +31,10 @@ class Segment {
         return new Segment(this.p1.round(), this.p2.round());
     }
     isIntersectingOther(s) {
-        var _s = s;
-        var _this = this;
-        var bbox = _s.getBoundingBox();
-        var myBbox = _this.getBoundingBox();
+        /* Based on https://martin-thoma.com/how-to-check-if-two-line-segments-intersect/ */
+        /* If one of the moved points is inside a triangle: */
+        var bbox = s.getBoundingBox();
+        var myBbox = this.getBoundingBox();
         if (myBbox.intersectOther(bbox)) {
             var intersection = s.getLine().isIntersectingLine(this.getLine());
             if (s.getBoundingBox().isPointInside(intersection)) {
