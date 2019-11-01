@@ -2,6 +2,7 @@ import re
 import os
 import requests
 from shutil import copyfile
+from shutil import rmtree
 
 
 class Builder():
@@ -26,8 +27,8 @@ class Builder():
         self.resources = list()
 
     def build(self):
-        if not os.path.exists('./build'):
-            os.makedirs('./build')
+        rmtree("./build")
+        os.makedirs('./build')
         output = open("build/EngineJS.js", 'w')
         print('Building...')
         for path in self.files:

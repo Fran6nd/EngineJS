@@ -17,9 +17,18 @@ class Line {
         else if (l.vertical || this.vertical) {
             var vert = l.vertical ? l.copy() : this.copy();
             var other = !l.vertical ? l.copy() : this.copy();
-            var x = vert.aPoint.x;
-            var y = other.a * x + other.b;
-            return new Vector2D(x, y);
+            if(other.horizontal)
+            {
+                var x = vert.aPoint.x;
+                var y = other.aPoint.y;
+                return new Vector2D(x, y);
+            }
+            else{
+                var x = vert.aPoint.x;
+                var y = other.a * x + other.b;
+                return new Vector2D(x, y);
+            }
+
         }
         else if (l.horizontal || this.horizontal) {
             var horizontal = l.horizontal ? l.copy() : this.copy();

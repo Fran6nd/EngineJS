@@ -1,7 +1,12 @@
 class GameObject {
-    constructor(transform) {
+    constructor(transform, tags = new Array()) {
         this.transform = transform;
         this.colliders = new Colliders();
+        this.tags = tags;
+    }
+    hasTag(tag)
+    {
+        return (this.tags.indexOf(tag) > -1);
     }
     draw(canvas, ctx) {
     }
@@ -15,6 +20,9 @@ class GameObject {
         ctx.stroke();
         ctx.closePath();
     }
-    update(dt) {
+    update(scene) {
+    }
+    onCollision(scene, obj){
+
     }
 }

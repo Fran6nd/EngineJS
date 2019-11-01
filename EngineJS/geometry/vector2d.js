@@ -68,13 +68,13 @@ class Vector2D {
 
     /* Static methods */
     static up() {
-        return new Vector2D(0, 1);
+        return new Vector2D(0, -1);
     }
     static forward() {
         return new Vector2D(0, 1);
     }
     static down() {
-        return new Vector2D(0, -1);
+        return new Vector2D(0, 1);
     }
     static backward() {
         return new Vector2D(0, -1);

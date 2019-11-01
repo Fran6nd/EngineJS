@@ -53,11 +53,11 @@ class Scene {
     update() {
         for (var i = 0; i < this.layers.length; i++) {
             for (const [key, value] of this.layers[i].entries()) {
-                value.update(this.dt);
+                value.update(this);
             }
         }
         for (const [key, value] of this.uiLayer.entries()) {
-            value.update(this.dt);
+            value.update(this);
         }
     }
     updateTransform() {
@@ -69,12 +69,12 @@ class Scene {
     }
     delete(id) {
         for (var i = 0; i < this.layers.length; i++) {
-            this.objects.delete(id);
+            this.layers[i].delete(id);
         }
     }
     run() {
         this.t2 = new Date().getTime();
-        this.dt = 1 / (this.t2 - this.t1) / 1000;
+        this.dt = ((this.t2 - this.t1) / 1000);
         this.update();
         this.updateTransform();
         this.draw();
@@ -82,11 +82,9 @@ class Scene {
             this.debugDraw();
         }
         this.t1 = this.t2;
+        requestAnimationFrame(function () { scene.run(); });
     }
-    start() {
-        var scene = this;
-        this.updater = setInterval(function () { scene.run(); }, 10);
-    }
+
     stop() {
         if (this.updater != null) {
             clearInterval(this.updater);
@@ -114,8 +112,10 @@ class Scene {
                         obj.transform.decrement(deltaTransform);
                         obj.colliders.update(obj.transform);
                         if(res.intersection)
-                            this.instantiate(new GameObject(new Transform(res.intersection, res.angle)));
-                        console.log(res.intersection);
+                        {
+                            obj.onCollision(this, value);
+                            value.onCollision(this, obj);
+                        }
                         break;
                     }
                 }

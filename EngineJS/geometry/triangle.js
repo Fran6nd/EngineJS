@@ -90,7 +90,6 @@ class HitPoint {
                     this.incomingVector = new Vector2D(point.x - previousPoint.x, point.y - previousPoint.y);
                     var furthestPoint = s.p1.sub(intersection).getModule() <= s.p1.sub(intersection).getModule() ? s.p1 : s.p2;
                     var closestPoint = s.p1.sub(intersection).getModule() > s.p1.sub(intersection).getModule() ? s.p1 : s.p2;
-                    //var biggestAnglePoint = s.p1.getArg() - s.getArg() >= s.p2.getArg() - s.getArg() ? s.p1 : s.p2;
                     var newMovement = intersection.sub(furthestPoint).normalize();
                     this.angle = newMovement.getArg() + this.incomingVector.getArg();
                     this.angle = crossingSegmentDir.getArg();
