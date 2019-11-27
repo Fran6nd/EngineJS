@@ -26,27 +26,30 @@ class Triangle {
         var b3 = Triangle.sign(p, this.p3, this.p1) > 0;
         return ((b1 == b2) && (b2 == b3));
     }
-    isIntersectingTriangle(t) {
+    isIntersectingTriangle(t, transform, dtransform) {
         if (this.isPointInside(t.p1)) {
-            return true;
+            return new HitPoint(t.p1, this, transform, dtransform, false);
         }
         if (this.isPointInside(t.p2)) {
-            return true;
+            return new HitPoint(t.p2, this, transform, dtransform, false);
         }
         if (this.isPointInside(t.p3)) {
-            return true;
+            return new HitPoint(t.p3, this, transform, dtransform, false);
         }
         if (t.isPointInside(this.p1)) {
-            return true;
+            return new HitPoint(this.p1, t, transform, dtransform);
         }
         if (t.isPointInside(this.p2)) {
-            return true;
+            return new HitPoint(this.p2, t, transform, dtransform);
         }
         if (t.isPointInside(this.p3)) {
-            return true;
+            return new HitPoint(this.p3, t, transform, dtransform);
         }
+        return false;
     }
+
     draw(ctx) {
         Drawing.drawTriangle(ctx, this.p1, this.p2, this.p3);
     }
 }
+

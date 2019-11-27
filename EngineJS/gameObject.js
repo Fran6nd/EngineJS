@@ -1,7 +1,12 @@
 class GameObject {
-    constructor(transform) {
+    constructor(transform, tags = new Array()) {
         this.transform = transform;
         this.colliders = new Colliders();
+        this.tags = tags;
+    }
+    hasTag(tag)
+    {
+        return (this.tags.indexOf(tag) > -1);
     }
     draw(canvas, ctx) {
     }
@@ -15,28 +20,9 @@ class GameObject {
         ctx.stroke();
         ctx.closePath();
     }
-    update(dt) {
+    update(scene) {
     }
-    updateTransform(scene) {
-        var dt = scene.dt;
-        var deltaRotation = this.transform.angularVelocity * dt;
-        var deltaPosition = this.transform.velocity.mul(dt);
+    onCollision(scene, obj){
 
-        this.transform.rotation += deltaRotation;
-        this.colliders.update(this.transform);
-        if (!scene.canBeHere(this)) {
-            this.transform.rotation -= deltaRotation;
-        }
-        this.transform.position.x += deltaPosition.x;
-        this.colliders.update(this.transform);
-        if (!scene.canBeHere(this)) {
-            this.transform.position.x -= deltaPosition.x;
-        }
-        this.transform.position.y += deltaPosition.y;
-        this.colliders.update(this.transform);
-        if (!scene.canBeHere(this)) {
-            this.transform.position.y -= deltaPosition.y;
-        }
-        this.colliders.update(this.transform);
     }
 }

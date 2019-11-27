@@ -3,11 +3,12 @@ class Colliders {
         this.colliders = new Map();
         this.instantiateId = 0;
     }
-    isIntersectingColliders(col) {
+    isIntersectingColliders(col, transform, dtransform) {
         for (const [k1, c1] of this.colliders.entries()) {
             for (const [k2, c2] of col.colliders.entries()) {
-                if (c1.isIntersectingCollider(c2)) {
-                    return true;
+                var res = c1.isIntersectingCollider(c2, transform, dtransform)
+                if (res) {
+                    return res;
                 }
             }
         }
@@ -27,6 +28,7 @@ class Colliders {
         this.instantiateId++;
         var id = this.instantiateId.toString(10);
         this.colliders.set(id, collider);
+        collider.id = id;
         return id;
     }
     remove(id) {

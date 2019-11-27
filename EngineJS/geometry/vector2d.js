@@ -58,19 +58,23 @@ class Vector2D {
         this.setArg(arg - i);
         return this;
     }
+    round() {
+        var decimals = 10000000000;
+        return new Vector2D(this.x != null ? Math.round(this.x * decimals) / decimals : null,this.y != null ? Math.round(this.y * decimals) / decimals : null);
+    }
     copy() {
         return new Vector2D(this.x, this.y);
     }
 
     /* Static methods */
     static up() {
-        return new Vector2D(0, 1);
+        return new Vector2D(0, -1);
     }
     static forward() {
         return new Vector2D(0, 1);
     }
     static down() {
-        return new Vector2D(0, -1);
+        return new Vector2D(0, 1);
     }
     static backward() {
         return new Vector2D(0, -1);

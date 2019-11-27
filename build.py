@@ -2,6 +2,7 @@ import re
 import os
 import requests
 from shutil import copyfile
+from shutil import rmtree
 
 
 class Builder():
@@ -11,9 +12,13 @@ class Builder():
         self.addfile('EngineJS/drawing.js')
         self.addfile('EngineJS/key.js')
         self.addfile('EngineJS/inputManager.js')
-        self.addfile('EngineJS/vector2d.js')
+        self.addfile('EngineJS/geometry/vector2d.js')
         self.addfile('EngineJS/transform.js')
-        self.addfile('EngineJS/triangle.js')
+        self.addfile('EngineJS/geometry/triangle.js')
+        self.addfile('EngineJS/geometry/line.js')
+        self.addfile('EngineJS/geometry/segment.js')
+        self.addfile('EngineJS/geometry/boundingBox.js')
+        self.addfile('EngineJS/geometry/hitPoint.js')
         self.addfile('EngineJS/collider.js')
         self.addfile('EngineJS/colliders.js')
         self.addfile('EngineJS/gameObject.js')
@@ -23,8 +28,8 @@ class Builder():
         self.resources = list()
 
     def build(self):
-        if not os.path.exists('./build'):
-            os.makedirs('./build')
+        rmtree("./build")
+        os.makedirs('./build')
         output = open("build/EngineJS.js", 'w')
         print('Building...')
         for path in self.files:
@@ -33,14 +38,14 @@ class Builder():
             output.write(file.read())
             file.close()
         output.close()
-        url = 'https://javascript-minifier.com/raw'
-        data = {'input': open('build/EngineJS.js', 'r').read()}
-        response = requests.post(url, data=data)
-        simplified = response.text
-        simplified = self.minifyClassNames(simplified)
-        output = open("build/EngineJS.js", 'w')
-        output.write(simplified)
-        output.close()
+        #url = 'https://javascript-minifier.com/raw'
+        #data = {'input': open('build/EngineJS.js', 'r').read()}
+        #response = requests.post(url, data=data)
+        #simplified = response.text
+        #simplified = self.minifyClassNames(simplified)
+        #output = open("build/EngineJS.js", 'w')
+        #output.write(simplified)
+        #output.close()
         index = open('build/index.html', 'w')
         baseIndexFile = open('EngineJS/index.html', 'r')
         index.write(baseIndexFile.read().format(self.mainClassName))

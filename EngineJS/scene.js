@@ -53,32 +53,28 @@ class Scene {
     update() {
         for (var i = 0; i < this.layers.length; i++) {
             for (const [key, value] of this.layers[i].entries()) {
-                value.update(this.dt);
+                value.update(this);
             }
         }
         for (const [key, value] of this.uiLayer.entries()) {
-            value.update(this.dt);
+            value.update(this);
         }
     }
     updateTransform() {
         for (var i = 0; i < this.layers.length; i++) {
             for (const [key, value] of this.layers[i].entries()) {
-                value.updateTransform(this);
+                this.moveGameObject(value);
             }
-        }
-
-        for (const [key, value] of this.uiLayer.entries()) {
-            value.updateTransform(dt);
         }
     }
     delete(id) {
         for (var i = 0; i < this.layers.length; i++) {
-            this.objects.delete(id);
+            this.layers[i].delete(id);
         }
     }
     run() {
         this.t2 = new Date().getTime();
-        this.dt = 1 / (this.t2 - this.t1) / 1000;
+        this.dt = ((this.t2 - this.t1) / 1000);
         this.update();
         this.updateTransform();
         this.draw();
@@ -86,11 +82,9 @@ class Scene {
             this.debugDraw();
         }
         this.t1 = this.t2;
+        requestAnimationFrame(function () { scene.run(); });
     }
-    start() {
-        var scene = this;
-        this.updater = setInterval(function () { scene.run(); }, 10);
-    }
+
     stop() {
         if (this.updater != null) {
             clearInterval(this.updater);
@@ -101,25 +95,32 @@ class Scene {
         this.stop();
         target.start();
     }
-    canBeHere(obj, layer = -1) {
-        if (layer == -1) {
-            layer = obj.layer;
+    moveGameObject(obj) {
+        obj.colliders.update(obj.transform);
+        if (obj.transform.velocity.x != 0 || obj.transform.velocity.y != 0 || obj.transform.angularVelocity.x != 0) {
+            var deltaRotation = obj.transform.angularVelocity * this.dt;
+            var deltaPosition = obj.transform.velocity.mul(this.dt);
+            var deltaTransform = new Transform(deltaPosition, deltaRotation)
+            obj.transform.increment(deltaTransform);
+            obj.colliders.update(obj.transform);
+            var layer = obj.layer;
             var c1 = obj.colliders;
             for (const [key, value] of this.layers[layer].entries()) {
-                if (value.colliders.isIntersectingColliders(c1)) {
-                    return false;
-                }
-            }
-        }
-        else {
-            for (var i = 0; i < this.layers.length; i++) {
-                for (const [key, value] of this.layers[layer].entries()) {
-                    if (value.colliders.isIntersectingColliders(c1)) {
-                        return false;
+                if (key != obj.id) {
+                    var res = c1.isIntersectingColliders(value.colliders, obj.transform.copy(), deltaTransform.copy());
+                    if (res != false) {
+                        obj.transform.decrement(deltaTransform);
+                        obj.colliders.update(obj.transform);
+                        if(res.intersection)
+                        {
+                            obj.onCollision(this, value);
+                            value.onCollision(this, obj);
+                        }
+                        break;
                     }
                 }
             }
+
         }
-        return true;
     }
 }
